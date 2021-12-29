@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "test": "jest",
-    "prepare": "husky install"
+    "format": "prettier . --write"
   },
   "name": "backend",
   "version": "1.0.0",
