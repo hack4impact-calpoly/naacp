@@ -76,7 +76,7 @@ npm run dev
 
 #### Creating a Pull Request
 
-On our Github repository, click on the 'Compare & pull request' button that lists your repository name, or go to the 'branches' button and click on 'New pull request'.
+On our Github repository, click on the 'Compare & pull request' button that lists your repository name, or go to the 'branches' button and click on 'New pull request.'
 
 Add a description of your changes and write the issue number to link the pull request and issue.
 
