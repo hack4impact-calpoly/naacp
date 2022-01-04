@@ -6,3 +6,5 @@ frontend/node_modules
 backend/.env
 frontend/.env
 
+#Ignore Mac files
+.DS_Store
