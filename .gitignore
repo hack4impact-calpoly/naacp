@@ -3,7 +3,7 @@ backend/node_modules
 frontend/node_modules
 
 # Ignore env files
-backend/.env
+
 frontend/.env
 
 #Ignore Mac files
