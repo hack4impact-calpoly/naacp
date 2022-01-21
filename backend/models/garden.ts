@@ -1,6 +1,6 @@
 import {Schema, Model, Types} from 'mongoose';
 
-'creating document interface for typescript'
+'creating document interface for typescri'
 interface User{
     name: string;
     description: string;
