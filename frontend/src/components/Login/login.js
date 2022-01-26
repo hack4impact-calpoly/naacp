@@ -1,27 +1,37 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { Form } from "react-bootstrap";
 
 function Login() {
+  // const [name, setName] = useState('');
+  // const [password, setPassword] = useState("");
+  const { register } = useForm();
+
+  // const onSubmit = handleSubmit((data) => {
+  //   console.log(data);
+  // })
+
   return (
     <div className="Login">
       <p>Login</p>
-      <div>
-        <label htmlFor="" className="text-sm font-bold text-gray-600 block">
-          Username
-        </label>
-        <input
+      <Form.Group controlId="username">
+        <Form.Control
+          {...register("username", { required: true })}
           type="text"
-          className="w-full p=2 border border-gray-300 rounded mt-1"
-        ></input>
-      </div>
-      <div>
-        <label htmlFor="" className="text-sm font-bold text-gray-600 block">
-          Password
-        </label>
-        <input
+          name="username"
+          placeholder="Username"
+          className="form"
+        />
+      </Form.Group>
+      <Form.Group controlId="password">
+        <Form.Control
+          {...register("password", { required: true })}
           type="password"
-          className="w-full p=2 border border-gray-300 rounded mt-1"
-        ></input>
-      </div>
+          name="password"
+          placeholder="Password"
+          className="form"
+        />
+      </Form.Group>
     </div>
   );
 }
