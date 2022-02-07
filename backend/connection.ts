@@ -48,7 +48,11 @@ function makeNewConnection(url: string) {
 const userConnection = makeNewConnection(process.env.userDB!);
 const gardenConnection = makeNewConnection(process.env.gardenDB!);
 
+<<<<<<< HEAD
 module.exports = {
   userConnection,
   gardenConnection,
 };
+=======
+export { userConnection, gardenConnection };
+>>>>>>> d6d141676ac82f1d56920b8be5ba288a3422b9dc
