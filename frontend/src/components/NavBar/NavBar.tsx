@@ -2,8 +2,8 @@
 import { Fragment } from "react";
 import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import Logo from "./logo.svg";
 import React from "react";
-//import Logo from './logo.svg';
 
 const navigation = [
   { name: "Home", href: "#", current: true },
@@ -18,7 +18,7 @@ function classNames(...classes: string[]) {
 
 export default function Example() {
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -34,17 +34,17 @@ export default function Example() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex-1 flex items-center justify-start  sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="./logo.svg"
-                    alt="NAACP"
-                  />
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="./logo.svg"
-                  />
+              <div className="justify-start sm:justify-start grid grid-cols-2 gap-1">
+                <div className="flex-shrink-0 items-center">
+                  <img className="scale-10 h-20" src={Logo} alt="Logo" />
+                </div>
+                <div className="justify-start rid grid-rows-2 gap-4">
+                  <div className="justify-start">
+                    <h1 className="text-blue font-bold text-3xl">NAACP</h1>
+                  </div>
+                  <div className="justify-start">
+                    <h1>Slo Gardens</h1>
+                  </div>
                 </div>
               </div>
               <div className="flex-1 flex items-center justify-end  sm:items-stretch sm:justify-end ">

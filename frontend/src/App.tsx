@@ -9,7 +9,7 @@ import "./App.css";
 export default function App() {
   return (
     <Router>
-      <div>
+      <div className="app">
         <nav>
           <ul>
             <Navigation />
