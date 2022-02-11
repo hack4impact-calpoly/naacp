@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import User from "./models/user";
 const app = express();
+const mongoose = require('mongoose');
 
 
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -18,9 +19,47 @@ app.get('/', (req, res) => {
 })
 
 //get all users
-app.get("/api/users", async (req: Request, res: Response) => {
+app.get("/users", async (req: Request, res: Response) => 
+{
   const users = await User.find({});
   res.send(users)
 })
+
+//gets user by id
+app.get("/user/:id", async (req: Request, res: Response) => 
+{
+  const user = await User.findOne({recipeName: req.params.id})
+  res.send(user)
+})
+
+//add new user to the DB
+app.post("/users", async (req: Request, res: Response) => 
+{
+  try
+  {
+    const { first_name, last_name, description, phone, email, picture, gardens, saved } = req.body;
+    const newUser = new User({
+      first_name,
+      last_name,
+      description,
+      phone,
+      email,
+      picture,
+      gardens,
+      saved
+    });
+    await newUser.save();
+    res.send(`${ first_name } ${ last_name } added to the collection`);
+  }
+  catch(error)
+  {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(message);
+    res.status(500).send(message);
+    console.log(`error: ${ message }`)
+  }
+})
+
 
 app.listen(4000);
