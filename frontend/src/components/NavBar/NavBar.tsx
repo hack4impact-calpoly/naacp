@@ -38,11 +38,13 @@ export default function Example() {
                 <div className="flex-shrink-0 items-center">
                   <img className="scale-10 h-20" src={Logo} alt="Logo" />
                 </div>
-                <div className="justify-start rid grid-rows-2 gap-4">
+                <div className="justify-center rid grid-rows-2 gap-4">
                   <div className="justify-start">
-                    <h1 className="text-blue font-bold text-3xl">NAACP</h1>
+                    <h1 className="header text-blue font-bold text-3xl">
+                      NAACP
+                    </h1>
                   </div>
-                  <div className="justify-start">
+                  <div className="subheader text-2xl justify-center">
                     <h1>Slo Gardens</h1>
                   </div>
                 </div>
@@ -56,9 +58,9 @@ export default function Example() {
                         href={item.href}
                         className={classNames(
                           item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
+                            ? "bg-slate-300 text-blue"
+                            : "text-blue hover:bg-slate-300 ",
+                          "px-3 py-2 rounded-md header text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >

@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.app {
+.header {
   font-family: "Montserrat", sans-serif;
   font-family: "Roboto Mono", monospace;
+  font-family: "Montserrat", sans-serif;
+}
+
+.subheader {
+  font-family: "Roboto Mono", monospace;
+  font-family: "Montserrat", sans-serif;
+  font-family: "Ranga", cursive;
 }
