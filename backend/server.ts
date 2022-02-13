@@ -1,8 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import User from "./models/user";
 const app = express();
-const mongoose = require('mongoose');
-
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -14,7 +12,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use(express.json());
 
 //test endpoint
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello world!')
 })
 
@@ -26,9 +24,9 @@ app.get("/users", async (req: Request, res: Response) =>
 })
 
 //gets user by id
-app.get("/user/:id", async (req: Request, res: Response) => 
+app.get("/users/:id", async (req: Request, res: Response) => 
 {
-  const user = await User.findOne({recipeName: req.params.id})
+  const user = await User.findOne({id: req.params.id})
   res.send(user)
 })
 
@@ -56,7 +54,7 @@ app.post("/users", async (req: Request, res: Response) =>
     let message;
     if (error instanceof Error) message = error.message;
     else message = String(message);
-    res.status(500).send(message);
+    res.status(400).send(message);
     console.log(`error: ${ message }`)
   }
 })
