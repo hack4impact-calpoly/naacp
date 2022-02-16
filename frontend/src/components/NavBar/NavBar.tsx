@@ -2,8 +2,10 @@
 import { Fragment } from "react";
 import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+//import Logo from "./logo.png";
 import Logo from "./logo.svg";
 import React from "react";
+import styled from "styled-components";
 
 const navigation = [
   { name: "Home", href: "#", current: true },
@@ -11,6 +13,12 @@ const navigation = [
   { name: "Resources", href: "#", current: false },
   { name: "Profile", href: "#", current: false },
 ];
+
+const StyledImage = styled.img`
+  shape-rendering: geometricPrecision;
+  transform: unset !important;
+  transform: translate3d(0, 0, 0);
+`;
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -22,7 +30,7 @@ export default function Example() {
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-            <div className="relative flex items-center justify-between h-16">
+            <div className="relative flex items-center justify-start h-16">
               <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -34,9 +42,9 @@ export default function Example() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="justify-start sm:justify-start grid grid-cols-2 gap-1">
+              <div className="justify-start sm:justify-start grid grid-cols-2 gap-1 pt-8">
                 <div className="flex-shrink-0 items-center">
-                  <img className="scale-10 h-20" src={Logo} alt="Logo" />
+                  <StyledImage className="scale-10 h-20 " src={Logo} />
                 </div>
                 <div className="justify-center rid grid-rows-2 gap-4">
                   <div className="justify-start">
