@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import User from "./models/user";
 const app = express();
-import Gardens from './models/garden';
+import Garden from './models/garden';
 
 
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -25,8 +25,8 @@ app.get("/api/users", async (req: Request, res: Response) => {
 })
 
 //get all Gardens
-app.get("/api/gardens", async (req:Request , res:Response) => {
-  const gardens = await Gardens.find({})
+app.get("/gardens", async (req:Request , res:Response) => {
+  const gardens = await Garden.find({})
   res.send(gardens)
 })
 
