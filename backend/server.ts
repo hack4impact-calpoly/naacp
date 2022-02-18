@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import User from "./models/user";
 const app = express();
+import Garden from './models/garden';
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -21,6 +22,12 @@ app.get("/users", async (req: Request, res: Response) =>
 {
   const users = await User.find({});
   res.send(users)
+})
+
+//get all Gardens
+app.get("/gardens", async (req:Request , res:Response) => {
+  const gardens = await Garden.find({})
+  res.send(gardens)
 })
 
 //gets user by id
