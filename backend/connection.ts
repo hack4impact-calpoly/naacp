@@ -45,7 +45,7 @@ function makeNewConnection(url: string) {
   return db;
 }
 
-const userConnection = makeNewConnection(process.env.userDB!);
-const gardenConnection = makeNewConnection(process.env.gardenDB!);
+const userConnection = makeNewConnection(process.env.USERDB!);
+const gardenConnection = makeNewConnection(process.env.GARDENDB!);
 
 export { userConnection, gardenConnection };
