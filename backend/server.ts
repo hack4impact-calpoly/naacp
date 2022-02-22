@@ -79,9 +79,4 @@ if (process.argv.includes("dev")) {
   app.listen(PORT, () => console.log(`server running on port ${PORT}`));
 }
 
-process.on("beforeExit", () => {
-  userConnection.close();
-  gardenConnection.close();
-});
-
 export { app };
