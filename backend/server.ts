@@ -1,7 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import User from "./models/user";
 import Garden from "./models/garden";
-import { userConnection, gardenConnection } from "./connection";
 
 const app = express();
 
