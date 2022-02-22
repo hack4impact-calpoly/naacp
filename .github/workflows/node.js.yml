@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  userDB: ${{ secrets.userDB }}
+  gardenDB: ${{ secrets.gardenDB }}
+
 jobs:
   build:
     defaults:
@@ -29,9 +33,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: backend/package-lock.json
-      env:
-        userDB: ${{ secrets.userDB }}
-        gardenDB: ${{ secrets.gardenDB }}
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
