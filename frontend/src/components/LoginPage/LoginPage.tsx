@@ -9,7 +9,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Logo from "../../imgs/logo.png";
 import { useNavigate } from "react-router-dom";
-//import { styled as muiStyled } from '@mui/system';
+import { styled as muiStyled } from "@mui/system";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -163,19 +163,22 @@ const StyledSmallContainer = styled.div`
   }
 `;
 
-/*const StyledToggle = muiStyled(ToggleButton)({
-   backgroundColor: 'gray',
- });
+const StyledToggle = muiStyled(ToggleButton)({
+  marginTop: "15px",
+  marginBottom: "10px",
+  width: "150px",
+});
 
- const StyledToggleGroup = muiStyled(ToggleButtonGroup)({
+/*const StyledToggleGroup = muiStyled(ToggleButtonGroup)({
    backgroundColor: '#2a428a',
    color: 'white',
+   width: '300px',
  }); */
 
 const StyledLine = styled("hr")`
   border: 0px solid black;
-  margin-top: 14px;
-  width: 160px;
+  margin-top: 16px;
+  width: 220px;
   align: center;
   opacity: 1;
 `;
@@ -265,12 +268,12 @@ export default () => {
                 handleToggle(value);
               }}
             >
-              <ToggleButton value="login" aria-label="login">
+              <StyledToggle value="login" aria-label="login">
                 <StyledText className="subheader">log in</StyledText>
-              </ToggleButton>
-              <ToggleButton value="signup" aria-label="signup">
+              </StyledToggle>
+              <StyledToggle value="signup" aria-label="signup">
                 <StyledText className="subheader">sign up</StyledText>
-              </ToggleButton>
+              </StyledToggle>
             </ToggleButtonGroup>
           </Row>
           <Row>
