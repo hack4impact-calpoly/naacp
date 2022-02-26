@@ -10,7 +10,6 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Logo from "../../imgs/logo.png";
 import { useNavigate } from "react-router-dom";
 import { styled as muiStyled } from "@mui/system";
-import passwordValidator from "password-validator";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -101,7 +100,7 @@ const UnstyledButton = styled(Button)`
 `;
 
 const StyledButton = styled(Button)`
-  margin-top: 10px;
+  margin-top: 50px;
   margin-bottom: 3px;
   padding: 2px 5px;
   width: calc(100vw - 65px);
@@ -178,36 +177,20 @@ const StyledToggle = muiStyled(ToggleButton)({
 
 const StyledLine = styled("hr")`
   border: 0px solid black;
-  margin-top: 16px;
-  width: 220px;
+  margin-top: 14px;
+  width: 160px;
   align: center;
   opacity: 1;
 `;
 
 export default () => {
-  // const [validated, setValidated] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validLogin, setValidLogin] = useState(true);
   const [passwordShown, setPasswordShown] = useState(false);
-
-  const navigate = useNavigate();
-  const schema = new passwordValidator();
   // this toggle logic will probably need to be pushed up to the parent component when the sign
   // up page is created
   const [toggle, setToggle] = React.useState("login");
-
-  schema
-    .is()
-    .min(8)
-    .has()
-    .uppercase()
-    .has()
-    .lowercase()
-    .has()
-    .digits()
-    .has()
-    .symbols();
 
   const handleToggle = (newToggle: string) => {
     if (newToggle) {
@@ -216,6 +199,8 @@ export default () => {
     }
   };
 
+  const navigate = useNavigate();
+
   async function signIn() {
     try {
       await Auth.signIn(username, password);
@@ -223,8 +208,6 @@ export default () => {
       navigate("/nav");
     } catch (error) {
       setValidLogin(false);
-      //   event.preventDefault();
-      //   event.stopPropagation();
       console.log("error signing in", error);
     }
   }
@@ -232,7 +215,6 @@ export default () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
     signIn();
-    console.log("after");
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.preventDefault();
