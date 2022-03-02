@@ -30,4 +30,20 @@ app.get("/gardens", async (req:Request , res:Response) => {
   res.send(gardens)
 })
 
+//updates a garden
+app.put("/gardens/:id", async (req:Request, res: Response) => {
+  const GardenName = req.params.recipeName
+  const description = req.body.description
+  const garden = await Garden.findOne({name:GardenName})
+ try{
+   garden.name.push(description)
+   await garden.save()
+   res.send('garden sucessfully updated')
+ }
+ catch(error){
+   res.status(500).send(error)
+   console.error(`Could not update garden due to ${error}`)
+ }
+ })
+
 app.listen(4000);
