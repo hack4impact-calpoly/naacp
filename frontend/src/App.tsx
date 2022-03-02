@@ -4,6 +4,7 @@ import Home from "./components/Home/Home";
 import Login from "./components/LoginPage/LoginPage";
 //import Navigation from "./navigation";
 import NavBar from "./components/NavBar/NavBar";
+import GardenCard from "./components/GardenCard/GardenCard";
 import "./App.css";
 import { Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
@@ -20,6 +21,7 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/nav" element={<NavBar />} />
+              <Route path="/garden" element={<GardenCard />} />
             </Routes>
           </ul>
         </nav>
