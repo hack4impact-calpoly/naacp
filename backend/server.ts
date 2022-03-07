@@ -66,5 +66,33 @@ app.post("/users", async (req: Request, res: Response) =>
   }
 })
 
+app.put("/users/:id", async (req: Request, res: Response) =>
+{
+  try
+  {
+    let user = await User.findOne({ _id: req.params.id });
+
+    if (req.body.phone) {user.phone = req.body.phone;}
+    if (req.body.email) {user.email = req.body.email;}
+    if (req.body.first_name) {user.first_name = req.body.first_name;}
+    if (req.body.last_name) {user.last_name = req.body.last_name;}
+    if (req.body.description) {user.description = req.body.description;}
+    if (req.body.pictures) {user.picutes = req.body.pictures;}
+    if (req.body.gardens) {user.gardens = req.body.gardens;}
+    if (req.body.saved) {user.saved = req.body.saved;}
+
+    await user.save();
+    res.send(`successfully updated user with id ${req.params.id}`);
+  }
+  catch(error)
+  {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(message);
+    res.status(400).send(message);
+    console.log(`error: ${ message }`)
+  }
+})
+
 
 app.listen(4000);
