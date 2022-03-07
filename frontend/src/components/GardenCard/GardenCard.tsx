@@ -6,7 +6,10 @@ export default function GardenCard() {
   return (
     <body>
       <div className="md:container md:mx-auto py-20">
-        <div className="card md:mx-auto py-5 px-5" style={{ width: "500px" }}>
+        <div
+          className="garden-card md:mx-auto py-5 px-5"
+          style={{ width: "500px" }}
+        >
           <div className="row">
             <div className="col">
               <img width={150} src={require("./garden.jpg")} />
