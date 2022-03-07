@@ -1,7 +1,8 @@
 .card {
-  border-radius: 1rem;
+  border-radius: 2rem;
 }
 
-.cardImage {
-  border-radius: 50%;
+img {
+  border-radius: 25px;
+  margin-left: 10px;
 }
