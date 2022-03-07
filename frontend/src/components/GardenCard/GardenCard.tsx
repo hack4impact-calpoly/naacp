@@ -1,29 +1,34 @@
 import React from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+//import { Row, Col, Card } from "react-bootstrap";
 
 export default function GardenCard() {
   return (
     <body>
-      <Card className="gardenCard">
-        <Container>
-          <Row>
-            <Col>
-              <Card.Img
-                className="card-img-top object-cover h-30 w-30"
-                variant="top"
+      <div className="md:container md:mx-auto py-20">
+        <div className="card md:mx-auto py-5 px-5" style={{ width: "50%" }}>
+          <div className="row">
+            <div className="col">
+              <img
+                width={200}
+                height={150}
+                className="cardImage"
                 src={require("./garden.jpg")}
               />
-            </Col>
-            <Col>
-              <Card.Title>City Garden</Card.Title>
-              <Card.Subtitle>1 Grand Avenue</Card.Subtitle>
-              <Card.Subtitle>San Luis Obispo,</Card.Subtitle>
-              <Card.Subtitle>California 93405</Card.Subtitle>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Card.Body>
+            </div>
+            <div className="col">
+              <h5 className="card-title">City Garden</h5>
+              <h6 className="card-subtitle mb-2 text-muted">1 Grand Avenue</h6>
+              <h6 className="card-subtitle mb-2 text-muted">
+                San Luis Obispo,
+              </h6>
+              <h6 className="card-subtitle mb-2 text-muted">
+                California 93405
+              </h6>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <div className="card-body">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -31,11 +36,11 @@ export default function GardenCard() {
                 in reprehenderit in voluptate velit esse cillum dolore eu fugiat
                 nulla pariatur. Excepteur sint occaecat cupidatat non proident,
                 sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </Card.Body>
-            </Col>
-          </Row>
-        </Container>
-      </Card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
   );
 }
