@@ -77,7 +77,7 @@ app.put("/users/:id", async (req: Request, res: Response) =>
     if (req.body.first_name) {user.first_name = req.body.first_name;}
     if (req.body.last_name) {user.last_name = req.body.last_name;}
     if (req.body.description) {user.description = req.body.description;}
-    if (req.body.pictures) {user.pictures = req.body.pictures;}
+    if (req.body.picture) {user.picture = req.body.picture;}
     if (req.body.gardens) {user.gardens = req.body.gardens;}
     if (req.body.saved) {user.saved = req.body.saved;}
 
