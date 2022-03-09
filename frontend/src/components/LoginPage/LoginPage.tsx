@@ -10,6 +10,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Logo from "../../imgs/logo.png";
 import { useNavigate } from "react-router-dom";
 import { styled as muiStyled } from "@mui/system";
+import passwordValidator from "password-validator";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -100,7 +101,7 @@ const UnstyledButton = styled(Button)`
 `;
 
 const StyledButton = styled(Button)`
-  margin-top: 50px;
+  margin-top: 10px;
   margin-bottom: 3px;
   padding: 2px 5px;
   width: calc(100vw - 65px);
@@ -188,9 +189,24 @@ export default () => {
   const [password, setPassword] = useState("");
   const [validLogin, setValidLogin] = useState(true);
   const [passwordShown, setPasswordShown] = useState(false);
+
+  const navigate = useNavigate();
+  const schema = new passwordValidator();
   // this toggle logic will probably need to be pushed up to the parent component when the sign
   // up page is created
   const [toggle, setToggle] = React.useState("login");
+
+  schema
+    .is()
+    .min(8)
+    .has()
+    .uppercase()
+    .has()
+    .lowercase()
+    .has()
+    .digits()
+    .has()
+    .symbols();
 
   const handleToggle = (newToggle: string) => {
     if (newToggle) {
@@ -199,8 +215,6 @@ export default () => {
     }
   };
 
-  const navigate = useNavigate();
-
   async function signIn() {
     try {
       await Auth.signIn(username, password);
@@ -208,6 +222,8 @@ export default () => {
       navigate("/nav");
     } catch (error) {
       setValidLogin(false);
+      //   event.preventDefault();
+      //   event.stopPropagation();
       console.log("error signing in", error);
     }
   }
@@ -215,6 +231,7 @@ export default () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
     signIn();
+    console.log("after");
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.preventDefault();
