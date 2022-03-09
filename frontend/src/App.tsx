@@ -5,6 +5,10 @@ import Login from "./components/LoginPage/LoginPage";
 //import Navigation from "./navigation";
 import NavBar from "./components/NavBar/NavBar";
 import "./App.css";
+import { Auth } from "aws-amplify";
+import awsconfig from "./aws-exports";
+
+Auth.configure(awsconfig);
 
 export default function App() {
   return (

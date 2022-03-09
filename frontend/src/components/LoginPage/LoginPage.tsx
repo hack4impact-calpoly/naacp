@@ -10,6 +10,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Logo from "../../imgs/logo.png";
 import { useNavigate } from "react-router-dom";
 import { styled as muiStyled } from "@mui/system";
+import passwordValidator from "password-validator";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -24,7 +25,7 @@ const StyledContainer = styled.div`
 const StyledTitle = styled.h2`
   display: block;
   font-size: 86px;
-  padding-top: 10px;
+  padding-top: 6px;
   font-weight: 800;
   @media only screen and (min-width: 767px) {
     margin-left: auto;
@@ -44,7 +45,7 @@ const StyledSubTitle = styled.h2`
 
 const StyledImage = styled.img`
   display: block;
-  padding-top: 6px;
+  padding-top: 4px;
   margin-left: auto;
   margin-right: auto;
   @media only screen and (min-width: 768px) {
@@ -100,14 +101,14 @@ const UnstyledButton = styled(Button)`
 `;
 
 const StyledButton = styled(Button)`
-  margin-top: 50px;
+  margin-top: 10px;
   margin-bottom: 3px;
   padding: 2px 5px;
   width: calc(100vw - 65px);
   background-color: #2a428a;
   font-size: 18px;
   font-weight: 700;
-  border-radius: 5px;
+  border-radius: 12px;
   margin-left: auto;
   margin-right: auto;
   @media only screen and (min-width: 769px) {
@@ -184,14 +185,29 @@ const StyledLine = styled("hr")`
 `;
 
 export default () => {
-  const [validated, setValidated] = useState(false);
+  // const [validated, setValidated] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validLogin, setValidLogin] = useState(true);
   const [passwordShown, setPasswordShown] = useState(false);
+
+  const navigate = useNavigate();
+  const schema = new passwordValidator();
   // this toggle logic will probably need to be pushed up to the parent component when the sign
   // up page is created
   const [toggle, setToggle] = React.useState("login");
+
+  schema
+    .is()
+    .min(8)
+    .has()
+    .uppercase()
+    .has()
+    .lowercase()
+    .has()
+    .digits()
+    .has()
+    .symbols();
 
   const handleToggle = (newToggle: string) => {
     if (newToggle) {
@@ -200,8 +216,6 @@ export default () => {
     }
   };
 
-  const navigate = useNavigate();
-
   async function signIn() {
     try {
       await Auth.signIn(username, password);
@@ -209,6 +223,8 @@ export default () => {
       navigate("/nav");
     } catch (error) {
       setValidLogin(false);
+      //   event.preventDefault();
+      //   event.stopPropagation();
       console.log("error signing in", error);
     }
   }
@@ -216,12 +232,13 @@ export default () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
     signIn();
+    console.log("after");
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
-    setValidated(true);
+    //  setValidated(true);
   };
   const toggleShowPassword = () => {
     if (passwordShown) {
@@ -238,7 +255,7 @@ export default () => {
           Invalid Login, Please Try Again
         </div>
       )}
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <StyledContainer>
           <div className="grid-rows-1">
             <div className="justify-start sm:justify-start grid grid-cols-2 gap-1 pt-4">
@@ -309,7 +326,6 @@ export default () => {
                   setUsername(e.currentTarget.value)
                 }
               />
-              <StyledFeedback>looks good!</StyledFeedback>
               <StyledFeedback type="invalid">
                 {" "}
                 please input username.{" "}
@@ -329,7 +345,6 @@ export default () => {
                   }
                 />
               </StyledSmallContainer>
-              <StyledFeedback>looks good!</StyledFeedback>
               <StyledFeedback type="invalid">
                 {" "}
                 please input password{" "}
