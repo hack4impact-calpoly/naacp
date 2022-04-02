@@ -23,7 +23,8 @@ jobs:
         s3-bucket: 'example-api-deployment'
         stack-name: 'example-api-deployment-stack'
       env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        userDB: ${{ secrets.userDB }}
+        gardenDB: ${{ secrets.gardenDV }}
 
     - run: echo API is at ${{ steps.backend-deployment.outputs.api-url }}
       shell: bash
