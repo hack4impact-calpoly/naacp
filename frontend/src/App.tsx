@@ -6,10 +6,10 @@ import Login from "./components/LoginPage/LoginPage";
 import NavBar from "./components/NavBar/NavBar";
 import GardenCard from "./components/GardenCard/GardenCard";
 import "./App.css";
-import { Auth } from "aws-amplify";
-import awsconfig from "./aws-exports";
+//import { Auth } from "aws-amplify";
+//import awsconfig from "./aws-exports";
 
-Auth.configure(awsconfig);
+//Auth.configure(awsconfig);
 
 export default function App() {
   return (
