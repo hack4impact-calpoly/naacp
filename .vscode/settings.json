@@ -1,0 +1,11 @@
+{
+  "files.exclude": {
+    "frontend/amplify/.config": true,
+    "frontend/amplify/**/*-parameters.json": true,
+    "frontend/amplify/**/amplify.state": true,
+    "frontend/amplify/**/transform.conf.json": true,
+    "frontend/amplify/#current-cloud-backend": true,
+    "frontend/amplify/backend/amplify-meta.json": true,
+    "frontend/amplify/backend/awscloudformation": true
+  }
+}

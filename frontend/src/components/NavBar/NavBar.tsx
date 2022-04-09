@@ -2,7 +2,7 @@
 import { Fragment } from "react";
 import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import Logo from "./logo.png";
+import Logo from "../../imgs/logo.png";
 import React from "react";
 import styled from "styled-components";
 
