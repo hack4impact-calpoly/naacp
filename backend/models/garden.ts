@@ -11,6 +11,7 @@ interface IGarden {
   community: boolean;
   plants: Types.Array<string>;
   date: Date;
+  requested: Types.Array<string>;
 }
 
 ("creating schema for gardens");
@@ -24,6 +25,7 @@ const schema = new Schema<IGarden, Model<IGarden>>(
     community: { type: Boolean, required: true },
     plants: [String],
     date: { type: Date, required: true },
+    requested: { type: [String], required: true },
   },
   { collection: "gardenDB" }
 );
