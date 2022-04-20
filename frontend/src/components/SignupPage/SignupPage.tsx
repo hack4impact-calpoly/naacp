@@ -248,8 +248,8 @@ export default () => {
               </StyledToggle>
             </ToggleButtonGroup>
           </Row>
-          <Row className="md">
-            <Col >
+          <Row className="mt-6">
+            <Col className="md">
               <div className="control">
                 <StyledField
                   name="username"
