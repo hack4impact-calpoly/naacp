@@ -32,11 +32,22 @@ app.get("/gardens", async (req:Request , res:Response) => {
 
 //updates a garden
 app.put("/gardens/:id", async (req:Request, res: Response) => {
-  const GardenName = req.params.recipeName
-  const description = req.body.description
+  const GardenName = req.params.name;
+  const description = req.body.description;
+  const pictures = req.body.pictures;
+  const gardeners = req.body.gardeners;
+  const community = req.body.community;
+  const plants = req.body.plants;
+  const date = req.body.date;
   const garden = await Garden.findOne({name:GardenName})
  try{
-   garden.name.push(description)
+   garden.name.push(GardenName)
+   garden.description.push(description)
+   garden.pictures.push(pictures)
+   garden.gardeners.push(gardeners)
+   garden.community.push(community)
+   garden.plants.push(plants)
+   garden.date.push(date)
    await garden.save()
    res.send('garden sucessfully updated')
  }
