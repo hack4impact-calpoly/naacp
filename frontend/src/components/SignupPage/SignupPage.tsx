@@ -67,6 +67,8 @@ const StyledField = styled(Field)`
   margin-left: 33px;
   margin-top: -7px;
   margin-bottom: 3px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
   font-size: 18px;
   padding: 2px 5px;
   width: calc(100vw - 65px);
