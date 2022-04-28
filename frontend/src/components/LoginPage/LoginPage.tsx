@@ -2,7 +2,7 @@ import { Auth } from "aws-amplify";
 import React, { useState } from "react";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Col, Row, Button } from "react-bootstrap";
+import { Col, Row, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -10,6 +10,8 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Logo from "../../imgs/logo.png";
 import { useNavigate } from "react-router-dom";
 import { styled as muiStyled } from "@mui/system";
+import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -61,12 +63,14 @@ const StyledText = styled.div`
     margin-left: 0px;
   }
 `;
-const StyledField = styled(Form.Control)`
+const StyledField = styled(Field)`
   margin-left: 33px;
   margin-top: -7px;
   margin-bottom: 3px;
   font-size: 18px;
   padding: 2px 5px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
   width: calc(100vw - 65px);
   @media only screen and (min-width: 768px) {
     margin-left: auto;
@@ -75,11 +79,6 @@ const StyledField = styled(Form.Control)`
     min-width: 400px;
     max-width: 500px;
   }
-`;
-const StyledFeedback = styled(Form.Control.Feedback)`
-  margin-left: 20px;
-  font-size: 10px;
-  color: #2a428a;
 `;
 
 const UnstyledButton = styled(Button)`
@@ -151,18 +150,6 @@ const StyledButtonAndEye = styled.div`
   }
 `;
 
-const StyledSmallContainer = styled.div`
-  @media only screen and (min-width: 768px) {
-    width: calc(40vw - 65px);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: calc(40vw - 65px);
-    min-width: 400px;
-    max-width: 500px;
-  }
-`;
-
 const StyledToggle = muiStyled(ToggleButton)({
   marginTop: "15px",
   marginBottom: "10px",
@@ -177,13 +164,24 @@ const StyledLine = styled("hr")`
   opacity: 1;
 `;
 
+const renderError = (message: string) => (
+  <p className="text-danger">{message}</p>
+);
+
 function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [validLogin, setValidLogin] = useState(true);
   const [passwordShown, setPasswordShown] = useState(false);
+  const initialValues = {
+    username: "",
+    password: "",
+  };
 
   const navigate = useNavigate();
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string().required("Username is required"),
+    password: Yup.string().required("Password is required"),
+  });
+
   const [toggle, setToggle] = React.useState("login");
 
   const handleToggle = (newToggle: string) => {
@@ -193,28 +191,21 @@ function LoginPage() {
     }
   };
 
-  async function signIn() {
+  async function signIn(username: string, password: string) {
     try {
       await Auth.signIn(username, password);
-      setValidLogin(true);
       navigate("/nav");
     } catch (error) {
-      setValidLogin(false);
       console.log("error signing in", error);
     }
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const form = event.currentTarget;
-    console.log("after");
-    event.preventDefault();
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-        signIn();
-    }
+  const onSubmit = (values: { username: string; password: string }) => {
+    console.log("submit");
+    signIn(values.username, values.password);
+    console.log(JSON.stringify(values, null, 2));
   };
+
   const toggleShowPassword = () => {
     if (passwordShown) {
       setPasswordShown(false);
@@ -224,13 +215,15 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      {validLogin === false && (
-        <div className="alert alert-danger" role="alert">
-          Invalid Login, Please Try Again
-        </div>
-      )}
-      <Form onSubmit={handleSubmit}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={async (values, { resetForm }) => {
+        onSubmit(values);
+        resetForm();
+      }}
+    >
+      <Form>
         <StyledContainer>
           <div className="grid-rows-1">
             <div className="justify-start sm:justify-start grid grid-cols-2 gap-1 pt-4">
@@ -290,40 +283,32 @@ function LoginPage() {
             </Col>
           </Row>
           <Row className="mt-6">
-            <Form.Group as={Col} md controlId="validationCustom01">
-              <StyledField
-                required
-                type="username"
-                placeholder="username"
-                defaultValue={username}
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setUsername(e.currentTarget.value)
-                }
-              />
-              <StyledFeedback type="invalid">
-                {" "}
-                please input username.{" "}
-              </StyledFeedback>
-            </Form.Group>
-          </Row>
-          <Row className="mt-6"> 
-            <Form.Group as={Col} md controlId="validationCustom02">
-              <StyledSmallContainer>
+            <Col className="md">
+              <div className="control">
                 <StyledField
-                  required
-                  placeholder="password"
-                  type={passwordShown ? "text" : "password"}
-                  defaultValue={password}
-                  onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                    setPassword(e.currentTarget.value)
-                  }
+                  name="username"
+                  type="text"
+                  className="input"
+                  placeholder="username@example.com"
+                  autoComplete="on"
                 />
-              </StyledSmallContainer>
-              <StyledFeedback type="invalid">
-                {" "}
-                please input password{" "}
-              </StyledFeedback>
-            </Form.Group>
+                <ErrorMessage name="username" render={renderError} />
+              </div>
+            </Col>
+          </Row>
+          <Row className="mt-6">
+            <Col className="md">
+              <div className="control">
+                <StyledField
+                  name="password"
+                  type={passwordShown ? "text" : "password"}
+                  className="input"
+                  placeholder="password"
+                  autoComplete="on"
+                />
+                <ErrorMessage name="password" render={renderError} />
+              </div>
+            </Col>
           </Row>
           <Row>
             <StyledButtonAndEye>
@@ -349,7 +334,7 @@ function LoginPage() {
           </Row>
         </StyledContainer>
       </Form>
-    </div>
+    </Formik>
   );
-};
+}
 export default LoginPage;
