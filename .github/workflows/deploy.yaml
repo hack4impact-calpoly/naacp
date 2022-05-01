@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-    - main
+    - [main, deployment]
 
 jobs:
   deploy:
@@ -20,8 +20,8 @@ jobs:
     - id: backend-deployment
       uses: hack4impact-calpoly/express-deployment-aws-typescript@v0.9.0
       with:
-        s3-bucket: 'example-api-deployment'
-        stack-name: 'example-api-deployment-stack'
+        s3-bucket: 'naacp-backend'
+        stack-name: 'naacp-backend-stack'
       env:
         userDB: ${{ secrets.userDB }}
         gardenDB: ${{ secrets.gardenDV }}
