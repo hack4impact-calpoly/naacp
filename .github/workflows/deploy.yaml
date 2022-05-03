@@ -25,7 +25,7 @@ jobs:
         stack-name: 'naacp-backend-stack'
       env:
         userDB: ${{ secrets.userDB }}
-        gardenDB: ${{ secrets.gardenDV }}
+        gardenDB: ${{ secrets.gardenDB }}
 
     - run: echo API is at ${{ steps.backend-deployment.outputs.api-url }}
       shell: bash
