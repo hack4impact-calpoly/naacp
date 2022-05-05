@@ -19,7 +19,7 @@ jobs:
         aws-region: us-west-1
 
     - id: backend-deployment
-      uses: hack4impact-calpoly/express-deployment-aws-typescript@v0.9.10
+      uses: hack4impact-calpoly/express-deployment-aws-typescript@v0.10.0
       with:
         s3-bucket: 'naacp-backend'
         stack-name: 'naacp-backend-stack'
