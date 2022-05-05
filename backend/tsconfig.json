@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "es5",
-    "module": "es6",
+    "target": "es2016",
+    "module": "commonjs",
     "rootDir": "./",
     "allowJs": true,
     "moduleResolution": "node",
