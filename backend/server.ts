@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import User from "./models/user";
 import Garden from "./models/garden";
 
-const app = express();
+let app = express();
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -106,4 +106,5 @@ if (process.argv.includes("--dev")) {
   app.listen(PORT, () => console.log(`server running on port ${PORT}`));
 }
 
+console.log(app);
 export default app;
