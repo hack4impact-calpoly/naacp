@@ -31,7 +31,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node server.ts",
+    "dev": "ts-node server.ts --dev",
     "test": "mocha -r ts-node/register tests/*.test.ts --timeout 20000",
     "format": "prettier . --write"
   },
