@@ -2,7 +2,7 @@ import { Auth } from "aws-amplify";
 import React, { useState } from "react";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Col, Row, Button } from "react-bootstrap";
+import {Col, Row, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -67,10 +67,10 @@ const StyledField = styled(Field)`
   margin-left: 33px;
   margin-top: -7px;
   margin-bottom: 3px;
-  font-size: 18px;
-  padding: 2px 5px;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+  font-size: 18px;
+  padding: 2px 5px;
   width: calc(100vw - 65px);
   @media only screen and (min-width: 768px) {
     margin-left: auto;
@@ -78,23 +78,6 @@ const StyledField = styled(Field)`
     width: calc(40vw - 65px);
     min-width: 400px;
     max-width: 500px;
-  }
-`;
-
-const UnstyledButton = styled(Button)`
-  margin-top: 10px;
-  margin-bottom: 3px;
-  padding: 2px 5px;
-  width: calc(100vw - 65px);
-  background-color: #e5e5e5;
-  border-radius: 5px;
-  text-color: black;
-  margin-left: auto;
-  margin-right: auto;
-  @media only screen and (min-width: 769px) {
-    width: calc(40vw - 65px);
-    height: 53px;
-    border-radius: 5px;
   }
 `;
 
@@ -111,18 +94,6 @@ const StyledButton = styled(Button)`
   margin-right: auto;
   @media only screen and (min-width: 769px) {
     width: calc(40vw - 65px);
-    height: 53px;
-    border-radius: 5px;
-  }
-`;
-const StyledLinkButton = styled(Button)`
-  padding-top: 20px;
-  display: flex;
-  color: #2a428a;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: "Nunito Sans", sans-serif;
-  @media only screen and (min-width: 769px) {
     height: 53px;
     border-radius: 5px;
   }
@@ -150,59 +121,73 @@ const StyledButtonAndEye = styled.div`
   }
 `;
 
+const StyledSmallContainer = styled.div`
+  @media only screen and (min-width: 768px) {
+    width: calc(40vw - 65px);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: calc(40vw - 65px);
+    min-width: 400px;
+    max-width: 500px;
+  }
+`;
+
 const StyledToggle = muiStyled(ToggleButton)({
   marginTop: "15px",
   marginBottom: "10px",
   width: "150px",
 });
 
-const StyledLine = styled("hr")`
-  border: 0px solid black;
-  margin-top: 14px;
-  width: 160px;
-  align: center;
-  opacity: 1;
-`;
-
-const renderError = (message: string) => (
-  <p className="text-danger">{message}</p>
-);
-
-function LoginPage() {
+export default () => {
   const [passwordShown, setPasswordShown] = useState(false);
+  const [toggle, setToggle] = React.useState("signup");
   const initialValues = {
     username: "",
     password: "",
+    confirmPassword: "",
   };
-
   const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Username is required"),
-    password: Yup.string().required("Password is required"),
+    username: Yup.string()
+      .email("Username must be an email")
+      .required("Username is required"),
+    password: Yup.string()
+      .required("Password is required")
+      .matches(
+        /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+        "Password must contain at least 8 characters, one uppercase, one number and one special case character"
+      ),
+    confirmPassword: Yup.string()
+      .required("Confirm Password is required")
+      .oneOf([Yup.ref("password")], "Passwords must match"),
   });
-
-  const [toggle, setToggle] = React.useState("login");
 
   const handleToggle = (newToggle: string) => {
     if (newToggle) {
       setToggle(newToggle);
-      navigate("/signup");
+      navigate("/login");
     }
   };
 
-  async function signIn(username: string, password: string) {
+  async function signUp(username: string, password: string) {
     try {
-      await Auth.signIn(username, password);
-      navigate("/nav");
+      await Auth.signUp({ username, password });
+      navigate("/login");
     } catch (error) {
-      console.log("error signing in", error);
+      console.log("error signing up:", error);
     }
   }
 
-  const onSubmit = (values: { username: string; password: string }) => {
+  const onSubmit = (values: {
+    username: string;
+    password: string;
+    confirmPassword: string;
+  }) => {
     console.log("submit");
-    signIn(values.username, values.password);
+    signUp(values.username, values.password);
+    alert("Check your email for account verification prior to login");
     console.log(JSON.stringify(values, null, 2));
   };
 
@@ -213,6 +198,10 @@ function LoginPage() {
       setPasswordShown(true);
     }
   };
+
+  const renderError = (message: string) => (
+    <p className="text-danger">{message}</p>
+  );
 
   return (
     <Formik
@@ -261,27 +250,6 @@ function LoginPage() {
               </StyledToggle>
             </ToggleButtonGroup>
           </Row>
-          <Row>
-            <UnstyledButton>
-              <StyledText>sign in with Google</StyledText>
-            </UnstyledButton>
-          </Row>
-          <Row>
-            <UnstyledButton>
-              <StyledText>sign in with Facebook</StyledText>
-            </UnstyledButton>
-          </Row>
-          <Row>
-            <Col>
-              <StyledLine />
-            </Col>
-            <Col>
-              <StyledText>or</StyledText>
-            </Col>
-            <Col>
-              <StyledLine />
-            </Col>
-          </Row>
           <Row className="mt-6">
             <Col className="md">
               <div className="control">
@@ -292,22 +260,42 @@ function LoginPage() {
                   placeholder="username@example.com"
                   autoComplete="on"
                 />
+                <Row>
                 <ErrorMessage name="username" render={renderError} />
+                </Row>
               </div>
             </Col>
           </Row>
           <Row className="mt-6">
-            <Col className="md">
-              <div className="control">
-                <StyledField
-                  name="password"
-                  type={passwordShown ? "text" : "password"}
-                  className="input"
-                  placeholder="password"
-                  autoComplete="on"
-                />
-                <ErrorMessage name="password" render={renderError} />
-              </div>
+            <Col md>
+              <StyledSmallContainer>
+                <div className="control">
+                  <StyledField
+                    name="password"
+                    type={passwordShown ? "text" : "password"}
+                    className="input"
+                    placeholder="password"
+                    autoComplete="on"
+                  />
+                  <ErrorMessage name="password" render={renderError} />
+                </div>
+              </StyledSmallContainer>
+            </Col>
+          </Row>
+          <Row className="mt-6">
+            <Col md>
+              <StyledSmallContainer>
+                <div className="control">
+                  <StyledField
+                    name="confirmPassword"
+                    type={passwordShown ? "text" : "password"}
+                    className="input"
+                    placeholder="confirm password"
+                    autoComplete="on"
+                  />
+                  <ErrorMessage name="confirmPassword" render={renderError} />
+                </div>
+              </StyledSmallContainer>
             </Col>
           </Row>
           <Row>
@@ -323,18 +311,10 @@ function LoginPage() {
             </StyledButtonAndEye>
           </Row>
           <Row>
-            <StyledButton type="submit" block>
-              Log In
-            </StyledButton>
-          </Row>
-          <Row>
-            <StyledLinkButton href="/forgotPassword" variant="link">
-              Forgot your password?
-            </StyledLinkButton>
+            <StyledButton type="submit">create account</StyledButton>
           </Row>
         </StyledContainer>
       </Form>
     </Formik>
   );
-}
-export default LoginPage;
+};
