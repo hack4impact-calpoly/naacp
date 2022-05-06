@@ -1,11 +1,11 @@
+import { Auth } from "aws-amplify";
 import React from "react";
 import NavBar from "../NavBar/NavBar";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import GardenCard from "../GardenCard/GardenCard";
-//import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-//import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIosNew";
-import { Auth } from "aws-amplify";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIosNew";
 
 const HOST = window.location.hostname;
 const PORT = 4000;
@@ -100,6 +100,7 @@ function Home() {
           Your Gardens
         </h1>
         <div className="flex justify-center grid-cols-3">
+          <ArrowBackIosIcon fontSize="large" />
           <div className="flex overflow-x-scroll hide-scroll-bar self-center gray-background rounded w-9/12 space-x-10">
             <div className="flex flex-nowrap lg:ml-3 md:ml-3 ml-3 ">
               {!userGardens.isFetching &&
@@ -115,6 +116,7 @@ function Home() {
                 ))}
             </div>
           </div>
+          <ArrowForwardIosIcon fontSize="large" />
         </div>
       </div>
       <div className="flex flex-col bg-white m-auto p-auto">
@@ -122,6 +124,7 @@ function Home() {
           Recommended Gardens
         </h1>
         <div className="flex justify-center grid-cols-3">
+          <ArrowBackIosIcon fontSize="large" />
           <div className="flex overflow-x-scroll hide-scroll-bar gray-background rounded w-9/12 self-center space-x-5 mb-10">
             <div className="flex flex-nowrap lg:ml-3 md:ml-3 ml-3 ">
               {!recommendedGardens.isFetching &&
@@ -137,6 +140,7 @@ function Home() {
                 ))}
             </div>
           </div>
+          <ArrowForwardIosIcon fontSize="large" />
         </div>
         <p></p>
       </div>
