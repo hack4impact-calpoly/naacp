@@ -1,0 +1,22 @@
+#menu-outer {
+    height: 100px;
+}
+
+.table{
+    display: table;
+    margin: 0 auto;
+}
+
+ul#horizontal-list{
+    min-width: 696px;
+    margin-top: 5%;
+    align-items: center;
+    background-color: rgb(181, 178, 178);
+    justify-content: space-between;
+    width: 100%;
+}
+
+ul#horizontal-list li{
+    display: inline-block;
+    margin-left: 3%;
+}
