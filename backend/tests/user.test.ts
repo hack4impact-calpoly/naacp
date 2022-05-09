@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { app } from "../server";
+import app from "../server";
 import { agent as request } from "supertest";
 import mongoose from "mongoose";
 

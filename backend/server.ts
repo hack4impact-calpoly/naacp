@@ -101,9 +101,37 @@ app.put("/users/:id", async (req: Request, res: Response) =>
   }
 })
 
-if (process.argv.includes("dev")) {
+//updates a garden
+app.put("/gardens/:id", async (req:Request, res: Response) => {
+  const GardenName = req.params.name;
+  const description = req.body.description;
+  const pictures = req.body.pictures;
+  const gardeners = req.body.gardeners;
+  const community = req.body.community;
+  const plants = req.body.plants;
+  const date = req.body.date;
+  
+  const garden = await Garden.findOne({name:GardenName})
+  try{
+    garden.name.push(GardenName)
+    garden.description.push(description)
+    garden.pictures.push(pictures)
+    garden.gardeners.push(gardeners)
+    garden.community.push(community)
+    garden.plants.push(plants)
+    garden.date.push(date)
+    await garden.save()
+    res.send('garden sucessfully updated')
+  }
+  catch(error){
+    res.status(500).send(error)
+    console.error(`Could not update garden due to ${error}`)
+  }
+})
+
+if (process.argv.includes("--dev")) {
   const PORT = process.env.PORT || 4000;
   app.listen(PORT, () => console.log(`server running on port ${PORT}`));
 }
 
-export { app };
+export default app;
