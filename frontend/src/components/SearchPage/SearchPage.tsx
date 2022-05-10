@@ -2,41 +2,63 @@ import React from "react";
 import axios from "axios";
 import GardenCard from "../GardenCard/GardenCard";
 import NavBar from "../NavBar/NavBar";
+import TextField from "@mui/material/TextField";
 import "./SearchPage.css";
-// import { TextField } from "@mui/material";
-// import styled from "styled-components";
-// import InputAdornment from '@mui/material/InputAdornment';
-// import SearchIcon from "@mui/icons-material/Search";
 
 const HOST = window.location.hostname;
 const PORT = 4000;
 
 // const [inputText, setInputText] = useState("");
-// let inputHandler = (e: { target: { value: string; }; }) => {
-//     //convert input text to lower case
-//     var lowerCase = e.target.value.toLowerCase();
-//     setInputText(lowerCase);
-// };
 
-// const WhiteBorderTextField = styled(TextField)`
-//     & .MuiFormControl-root {
-//         border-color: white;
+// function SearchPage(this: any, props: { input: string; }){
+//     const { type, QUERY_BASE_URL, queryParams, handleClick } = props;
+//     const [error, setError] = useState(null);
+//     const [data, setData] = useState({ items: [], isFetching: false });
+//     const [inputText, setInputText] = useState("");
+
+//     let inputHandler = (e: { target: string; }) => {
+//         var lowerCase = e.target.toLowerCase();
+//         setInputText(lowerCase);
 //     }
-//     & label.Mui-focused {
-//         color: white;
-//     }
-//     & .MuiOutlinedInput-root {
-//         &.Mui-focused fieldset {
-//             border-color: white;
+
+//     useEffect(() => {
+//         setData({ items: data.items, isFetching: true });
+//         const controller = new AbortController();
+//         queryParams["signal"] = controller.signal;
+//         console.log(QUERY_BASE_URL);
+//         axios.get(QUERY_BASE_URL), {
+//             params: queryParams,
 //         }
-//         & fieldset: {
-//             border-color: white;
+//     }).then((response) => {
+//         console.log(data);
+//         setData({ items: response.data, isFetching: false });
+//     }).catch((err) => {
+//         if(axios.isCancel(err)) {
+//             console.log("Successfully Aborted");
+//             setData({ orgs: data.orgs, isFetching: false });
 //         }
-//         &:hover fieldset: {
-//             border-color: white;
+//         else{
+//             setError(err);
+//             conos
 //         }
-//     }
-// `;
+//     })
+
+//     const filteredData = this.state.gardens((el: { text: string; }) => {
+//         if(props.input === '') {
+//             return el;
+//         }
+//         else{
+//             return el.text.toLowerCase().includes(props.input)
+//         }
+//     })
+//     return(
+//         <ul>
+//             {filteredData.map((garden: { id: React.Key | null | undefined; }) => (
+//                 <li key={garden.id}><GardenCard /></li>
+//             ))}
+//         </ul>
+//     )
+// }
 
 export default class SearchPage extends React.Component{
     state = {
@@ -54,29 +76,26 @@ export default class SearchPage extends React.Component{
 
     render() {
         return (
-            <><NavBar /><div id="menu-outer">
-                {/* <div className="search">
-                    <WhiteBorderTextField
+            <><NavBar />
+            <div className="main">
+                <div className="search">
+                    <TextField
                         id="outlined-basic"
-                        onChange={inputHandler}
+                        // onChange={inputHandler}
                         variant="outlined"
                         fullWidth
-                        sx={{color:'white'}}
                         label="Search"
-                        InputProps={{
-                            startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon sx={{ color: "white" }} />
-                            </InputAdornment>
-                            ),
-                        }}
                     />
-                </div> */}
+                </div>
+            </div>
+            <div id="menu-outer">
                 <div className="table">
                     <ul id="horizontal-list">
-                        {this.state.gardens.map(
-                            (garden => <li key={garden}>{<GardenCard />}</li>)
-                        )}
+                        <div id="movers-row">
+                            {this.state.gardens.map(
+                                (garden => <li key={garden}>{<GardenCard />}</li>)
+                            )}
+                        </div>
                     </ul>
                 </div>
             </div></>

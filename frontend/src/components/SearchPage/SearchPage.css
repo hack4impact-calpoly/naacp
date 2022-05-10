@@ -9,14 +9,37 @@
 
 ul#horizontal-list{
     min-width: 696px;
-    margin-top: 5%;
-    align-items: center;
+    margin-top: 100px;
     background-color: rgb(181, 178, 178);
-    justify-content: space-between;
     width: 100%;
+    height: 80%;
 }
 
 ul#horizontal-list li{
     display: inline-block;
-    margin-left: 3%;
+}
+
+.search{
+    margin-top: 20px;
+    width: 30%;
+}
+
+.main{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 20px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+#movers-row{
+    margin: -165px 0 0 165px;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+#movers-row div{
+    float: left;
 }

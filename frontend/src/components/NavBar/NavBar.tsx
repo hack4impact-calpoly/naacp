@@ -7,8 +7,8 @@ import React from "react";
 import styled from "styled-components";
 
 const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "Search", href: "#", current: false },
+  { name: "Home", href: "/", current: true },
+  { name: "Search", href: "/search", current: false },
   { name: "Resources", href: "#", current: false },
   { name: "Profile", href: "#", current: false },
 ];
