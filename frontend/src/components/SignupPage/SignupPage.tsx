@@ -2,7 +2,7 @@ import { Auth } from "aws-amplify";
 import React, { useState } from "react";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Col, Row, Button } from "react-bootstrap";
+import { Col, Row, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -174,7 +174,9 @@ export default () => {
   async function signUp(username: string, password: string) {
     try {
       await Auth.signUp({ username, password });
-      navigate("/login");
+      navigate("/signup/confirm", {
+        state: { email: username, password: password },
+      });
     } catch (error) {
       console.log("error signing up:", error);
     }
@@ -187,7 +189,6 @@ export default () => {
   }) => {
     console.log("submit");
     signUp(values.username, values.password);
-    alert("Check your email for account verification prior to login");
     console.log(JSON.stringify(values, null, 2));
   };
 
@@ -261,7 +262,7 @@ export default () => {
                   autoComplete="on"
                 />
                 <Row>
-                <ErrorMessage name="username" render={renderError} />
+                  <ErrorMessage name="username" render={renderError} />
                 </Row>
               </div>
             </Col>
