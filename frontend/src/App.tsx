@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home/Home";
+// import Home from "./components/Home/Home";
 import Login from "./components/LoginPage/LoginPage";
 import Signup from "./components/SignupPage/SignupPage";
 import ConfirmSignUp from "./components/ConfirmSignUpPage/ConfirmSignUpPage";
@@ -21,12 +21,15 @@ export default function App() {
         <nav>
           <ul>
             <Routes>
-              <Route path="/" element={
-                <div>
-                  <NavBar />
-                  <Footer />
-                </div>
-              } />
+              <Route
+                path="/"
+                element={
+                  <div>
+                    <NavBar />
+                    <Footer />
+                  </div>
+                }
+              />
               <Route path="/login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
               <Route path="/nav" element={<NavBar />} />
