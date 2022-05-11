@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Login from "./components/LoginPage/LoginPage";
 import Signup from "./components/SignupPage/SignupPage";
+import ConfirmSignUp from "./components/ConfirmSignUpPage/ConfirmSignUpPage";
 //import Navigation from "./navigation";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -30,6 +31,7 @@ export default function App() {
               <Route path="signup" element={<Signup />} />
               <Route path="/nav" element={<NavBar />} />
               <Route path="/garden" element={<GardenCard />} />
+              <Route path="/signup/confirm" element={<ConfirmSignUp />} />
             </Routes>
           </ul>
         </nav>
