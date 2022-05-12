@@ -23,6 +23,7 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
               <Route path="/nav" element={<NavBar />} />
+              <Route path="garden" element={NavBar} />
             </Routes>
           </ul>
         </nav>
