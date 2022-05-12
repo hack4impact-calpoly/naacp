@@ -5,11 +5,17 @@ import Login from "./components/LoginPage/LoginPage";
 import Signup from "./components/SignupPage/SignupPage";
 import ConfirmSignUp from "./components/ConfirmSignUpPage/ConfirmSignUpPage";
 //import Navigation from "./navigation";
+<<<<<<< HEAD
 //import NavBar from "./components/NavBar/NavBar";
 //import Footer from "./components/Footer/Footer";
 // import GardenCard from "./components/GardenCard/GardenCard";
 import Home from "./components/Home/Home";
 import GardenPage from "./components/GardenPage/GardenPage";
+=======
+import NavBar from "./components/NavBar/NavBar";
+//import Footer from "./components/Footer/Footer";
+import Home from "./components/Home/Home";
+>>>>>>> a8ab44d (Adding non functional arrows)
 import "./App.css";
 import { Auth } from "aws-amplify";
 
