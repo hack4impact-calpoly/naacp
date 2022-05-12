@@ -7,7 +7,6 @@ import { Button } from "react-bootstrap";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 
-const HOST = window.location.hostname;
 const PORT = process.env.REACT_APP_SERVER_URL || 4000;
 const GARDENS_URL = PORT + `/gardens/:id`;
 
