@@ -8,8 +8,8 @@ import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 
 const HOST = window.location.hostname;
-const PORT = 4000;
-const GARDENS_URL = `http://${HOST}:${PORT}/gardens/:id`;
+const PORT = process.env.REACT_APP_SERVER_URL || 4000;
+const GARDENS_URL = PORT + `/gardens/:id`;
 
 const StyledImage = styled.img`
   width: 30%;
