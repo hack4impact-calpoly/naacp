@@ -62,7 +62,7 @@ export default class SearchPage extends React.Component<ListProps, ListState>{
         else {
           newList = this.props.items;
         }
-
+        
         this.setState({
           filtered: newList
         })
