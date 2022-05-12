@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import axios from "axios";
 import GardenCard from "../GardenCard/GardenCard";
 import NavBar from "../NavBar/NavBar";
@@ -8,72 +8,65 @@ import "./SearchPage.css";
 const HOST = window.location.hostname;
 const PORT = 4000;
 
-// const [inputText, setInputText] = useState("");
+export interface ListProps {
+    items: string[]
+}
 
-// function SearchPage(this: any, props: { input: string; }){
-//     const { type, QUERY_BASE_URL, queryParams, handleClick } = props;
-//     const [error, setError] = useState(null);
-//     const [data, setData] = useState({ items: [], isFetching: false });
-//     const [inputText, setInputText] = useState("");
+export interface ListState{
+    filtered: string[]
+}
 
-//     let inputHandler = (e: { target: string; }) => {
-//         var lowerCase = e.target.toLowerCase();
-//         setInputText(lowerCase);
-//     }
-
-//     useEffect(() => {
-//         setData({ items: data.items, isFetching: true });
-//         const controller = new AbortController();
-//         queryParams["signal"] = controller.signal;
-//         console.log(QUERY_BASE_URL);
-//         axios.get(QUERY_BASE_URL), {
-//             params: queryParams,
-//         }
-//     }).then((response) => {
-//         console.log(data);
-//         setData({ items: response.data, isFetching: false });
-//     }).catch((err) => {
-//         if(axios.isCancel(err)) {
-//             console.log("Successfully Aborted");
-//             setData({ orgs: data.orgs, isFetching: false });
-//         }
-//         else{
-//             setError(err);
-//             conos
-//         }
-//     })
-
-//     const filteredData = this.state.gardens((el: { text: string; }) => {
-//         if(props.input === '') {
-//             return el;
-//         }
-//         else{
-//             return el.text.toLowerCase().includes(props.input)
-//         }
-//     })
-//     return(
-//         <ul>
-//             {filteredData.map((garden: { id: React.Key | null | undefined; }) => (
-//                 <li key={garden.id}><GardenCard /></li>
-//             ))}
-//         </ul>
-//     )
-// }
-
-export default class SearchPage extends React.Component{
-    state = {
-        gardens: []
+export default class SearchPage extends React.Component<ListProps, ListState>{
+    // initialize empty filtered list for search
+    constructor(props: ListProps) {
+        super(props);
+        this.state = {
+            filtered: []
+        }
+        this.handleChange = this.handleChange.bind(this);
     }
     
+    // get "list" of gardencard components, set filtered list to these gardens
     componentDidMount() {
         axios.get(`http://${HOST}:${PORT}/gardens`).then(
             res => {
                 const gardens = res.data;
-                this.setState({gardens});
+                this.setState({
+                    filtered: gardens
+                });
             }
         )
+    
     }
 
+    componentWillReceiveProps(nextProps: ListProps){
+        this.setState({
+            filtered: nextProps.items
+        })
+    }
+
+    // if text entered in search bar matches gardencard "name", return only that gardencard(s)
+    handleChange(e: any) {
+        let currentList = [];
+        let newList = [];
+
+        if(e.target.value !== "") {
+          currentList = this.props.items
+          newList = currentList.filter(item => {
+            const lc = item.toLowerCase();
+            const filter = e.target.value.toLowerCase();
+            return lc.includes(filter)
+          })
+        } 
+        else {
+          newList = this.props.items
+        }
+
+        this.setState({
+          filtered: newList
+        })
+      }
+    
     render() {
         return (
             <><NavBar />
@@ -81,7 +74,7 @@ export default class SearchPage extends React.Component{
                 <div className="search">
                     <TextField
                         id="outlined-basic"
-                        // onChange={inputHandler}
+                        onChange={this.handleChange}
                         variant="outlined"
                         fullWidth
                         label="Search"
@@ -92,8 +85,8 @@ export default class SearchPage extends React.Component{
                 <div className="table">
                     <ul id="horizontal-list">
                         <div id="movers-row">
-                            {this.state.gardens.map(
-                                (garden => <li key={garden}>{<GardenCard />}</li>)
+                            {this.state.filtered.map(
+                                (item => <li key={item}>{<GardenCard />}</li>)
                             )}
                         </div>
                     </ul>

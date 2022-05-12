@@ -25,7 +25,7 @@ export default function App() {
               <Route path="signup" element={<Signup />} />
               <Route path="/nav" element={<NavBar />} />
               <Route path="/garden" element={<GardenCard />} />
-              <Route path="/search" element={<SearchPage />} />
+              <Route path="/search" element={<SearchPage items={[]} />} />
             </Routes>
           </ul>
         </nav>
