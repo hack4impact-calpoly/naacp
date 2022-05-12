@@ -160,10 +160,9 @@ app.put("/gardens/:id", async (req: Request, res: Response) => {
   }
 });
 
-app.listen(4000);
-if (process.argv.includes("dev")) {
+if (process.argv.includes("--dev")) {
   const PORT = process.env.PORT || 4000;
   app.listen(PORT, () => console.log(`server running on port ${PORT}`));
 }
 
-export { app };
+export default app;
