@@ -7,7 +7,8 @@ import ConfirmSignUp from "./components/ConfirmSignUpPage/ConfirmSignUpPage";
 //import Navigation from "./navigation";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
-import GardenCard from "./components/GardenCard/GardenCard";
+// import GardenCard from "./components/GardenCard/GardenCard";
+import GardenPage from "./components/GardenPage/GardenPage";
 import "./App.css";
 import { Auth } from "aws-amplify";
 
@@ -53,11 +54,13 @@ export default function App() {
                   </div>
                 }
               />
-              <Route path="/login" element={<Login />} />
+              <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
-              <Route path="/nav" element={<NavBar />} />
-              <Route path="/garden" element={<NavBar />} />
-              <Route path="/signup/confirm" element={<ConfirmSignUp />} />
+              <Route
+                path="/garden"
+                element={<GardenPage gardenId="61e6652b3cff809e851e536c" />}
+              />
+              <Route path="signup/confirm" element={<ConfirmSignUp />} />
             </Routes>
           </ul>
         </nav>

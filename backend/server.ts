@@ -52,6 +52,12 @@ app.get("/users/:id", async (req: Request, res: Response) => {
   res.send(user);
 });
 
+//gets garden by id
+app.get("/gardens/:id", async (req: Request, res: Response) => {
+  const garden = await Garden.findOne({ id: req.params.id });
+  res.send(garden);
+});
+
 //gets user's gardens by email
 app.get("/userGardens", async (req: Request, res: Response) => {
   const email = req.query.email;
