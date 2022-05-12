@@ -9,11 +9,11 @@ const HOST = window.location.hostname;
 const PORT = 4000;
 
 export interface ListProps {
-    items: string[]
+    items: any[]
 }
 
 export interface ListState{
-    filtered: string[]
+    filtered: any[]
 }
 
 export default class SearchPage extends React.Component<ListProps, ListState>{
@@ -50,16 +50,17 @@ export default class SearchPage extends React.Component<ListProps, ListState>{
         let currentList = [];
         let newList = [];
 
+        // *should* convert gardencard "name" to lowercase. If it matches the input, return that card.
         if(e.target.value !== "") {
           currentList = this.props.items
           newList = currentList.filter(item => {
-            const lc = item.toLowerCase();
+            const lc = item.name.toLowerCase();
             const filter = e.target.value.toLowerCase();
             return lc.includes(filter)
           })
         } 
         else {
-          newList = this.props.items
+          newList = this.props.items;
         }
 
         this.setState({
