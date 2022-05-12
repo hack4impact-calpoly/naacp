@@ -40,11 +40,11 @@ app.get("/communityGardens", async (req: Request, res: Response) => {
 });
 
 //get all Gardens for a given user
-app.get("/userGardens", async (req: Request, res: Response) => {
+/*app.get("/userGardens", async (req: Request, res: Response) => {
   const id = req.query.id;
   const gardens = await Garden.find({ gardeners: id });
   res.send(gardens);
-});
+});*/
 
 //gets user by id
 app.get("/users/:id", async (req: Request, res: Response) => {
@@ -52,11 +52,12 @@ app.get("/users/:id", async (req: Request, res: Response) => {
   res.send(user);
 });
 
-//gets user by email
-app.get("/userEmail", async (req: Request, res: Response) => {
+//gets user's gardens by email
+app.get("/userGardens", async (req: Request, res: Response) => {
   const email = req.query.email;
   const user = await User.findOne({ email: email });
-  res.send(user);
+  const gardens = await Garden.find({ gardeners: user._id });
+  res.send(gardens);
 });
 
 //add new user to the DB

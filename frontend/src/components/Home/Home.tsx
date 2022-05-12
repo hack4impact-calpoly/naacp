@@ -3,18 +3,16 @@ import NavBar from "../NavBar/NavBar";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import GardenCard from "../GardenCard/GardenCard";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIosNew";
+//import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+//import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Auth } from "aws-amplify";
 
 const HOST = window.location.hostname;
 const PORT = 4000;
 const COMMUNITY_GARDENS_URL = `http://${HOST}:${PORT}/communityGardens`;
 const USER_GARDENS_URL = `http://${HOST}:${PORT}/userGardens`;
-const USER_URL = `http://${HOST}:${PORT}/userEmail`;
 
 function Home() {
-  const [userId, setUserId] = useState(null);
   const [userGardens, setUserGardens] = useState({
     items: [],
     isFetching: false,
@@ -25,13 +23,14 @@ function Home() {
   });
   const [error, setError] = useState(null);
 
-  // retreives a users gardens from the database by looking up by ID
-  async function getUserGardens(userId: string) {
+  // retreives a users gardens from the database by looking up by email
+  async function getUserGardens(userEmail: string) {
+    // console.log(userId);
     setUserGardens({ items: userGardens.items, isFetching: true });
     const controller = new AbortController();
     Axios.get(USER_GARDENS_URL, {
       params: {
-        id: userId,
+        email: userEmail,
         signal: controller.signal,
       },
     })
@@ -50,39 +49,12 @@ function Home() {
       });
   }
 
-  // gets a user from the database by looking up by email
-  async function getUserByEmail(email: string) {
-    const controller = new AbortController();
-    Axios.get(USER_URL, {
-      params: {
-        email: email,
-        signal: controller.signal,
-      },
-    })
-      .then((response) => {
-        console.log(response.data);
-        setUserId(response.data.id);
-      })
-      .catch((err) => {
-        if (Axios.isCancel(err)) {
-          console.log("successfully aborted");
-          setUserId(null);
-        } else {
-          setError(err);
-          console.log(error);
-          console.log("Failed to fetch user by email");
-        }
-      });
-    return userId;
-  }
-
   // retrieve the current user from Amplify
   useEffect(() => {
     Auth.currentAuthenticatedUser({
       bypassCache: false,
     })
-      .then((user: any) => getUserByEmail(user.attributes.email))
-      .then((id: any) => getUserGardens(id))
+      .then((user: any) => getUserGardens(user.attributes.email))
       .catch((err) => console.log(err));
   }, []);
 
@@ -128,7 +100,6 @@ function Home() {
           Your Gardens
         </h1>
         <div className="flex justify-center grid-cols-3">
-          <ArrowBackIosIcon fontSize="large" />
           <div className="flex overflow-x-scroll hide-scroll-bar self-center gray-background rounded w-9/12 space-x-10">
             <div className="flex flex-nowrap lg:ml-3 md:ml-3 ml-3 ">
               {!userGardens.isFetching &&
@@ -144,7 +115,6 @@ function Home() {
                 ))}
             </div>
           </div>
-          <ArrowForwardIosIcon fontSize="large" />
         </div>
       </div>
       <div className="flex flex-col bg-white m-auto p-auto">
@@ -152,13 +122,13 @@ function Home() {
           Recommended Gardens
         </h1>
         <div className="flex justify-center grid-cols-3">
-          <ArrowBackIosIcon fontSize="large" />
           <div className="flex overflow-x-scroll hide-scroll-bar gray-background rounded w-9/12 self-center space-x-5 mb-10">
             <div className="flex flex-nowrap lg:ml-3 md:ml-3 ml-3 ">
               {!recommendedGardens.isFetching &&
                 recommendedGardens.items &&
                 recommendedGardens.items.map((garden) => (
                   <GardenCard
+                    key={garden["name"]}
                     name={garden["name"]}
                     location={garden["location"]}
                     description={garden["description"]}
@@ -167,7 +137,6 @@ function Home() {
                 ))}
             </div>
           </div>
-          <ArrowForwardIosIcon fontSize="large" />
         </div>
         <p></p>
       </div>
