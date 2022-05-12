@@ -5,14 +5,16 @@ import { useEffect, useState } from "react";
 import GardenCard from "../GardenCard/GardenCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIosNew";
+import { Auth } from "aws-amplify";
 
 const HOST = window.location.hostname;
 const PORT = 4000;
 const COMMUNITY_GARDENS_URL = `http://${HOST}:${PORT}/communityGardens`;
 const USER_GARDENS_URL = `http://${HOST}:${PORT}/userGardens`;
-const userId = `61fa14ba48e47f46e1ba319e`;
+const USER_URL = `http://${HOST}:${PORT}/userEmail`;
 
 function Home() {
+  const [userId, setUserId] = useState(null);
   const [userGardens, setUserGardens] = useState({
     items: [],
     isFetching: false,
@@ -22,6 +24,67 @@ function Home() {
     isFetching: false,
   });
   const [error, setError] = useState(null);
+
+  // retreives a users gardens from the database by looking up by ID
+  async function getUserGardens(userId: string) {
+    setUserGardens({ items: userGardens.items, isFetching: true });
+    const controller = new AbortController();
+    Axios.get(USER_GARDENS_URL, {
+      params: {
+        id: userId,
+        signal: controller.signal,
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        setUserGardens({ items: response.data, isFetching: false });
+      })
+      .catch((err) => {
+        if (Axios.isCancel(err)) {
+          console.log("successfully aborted");
+          setUserGardens({ items: userGardens.items, isFetching: false });
+        } else {
+          setError(err);
+          console.log(error);
+        }
+      });
+  }
+
+  // gets a user from the database by looking up by email
+  async function getUserByEmail(email: string) {
+    const controller = new AbortController();
+    Axios.get(USER_URL, {
+      params: {
+        email: email,
+        signal: controller.signal,
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        setUserId(response.data.id);
+      })
+      .catch((err) => {
+        if (Axios.isCancel(err)) {
+          console.log("successfully aborted");
+          setUserId(null);
+        } else {
+          setError(err);
+          console.log(error);
+          console.log("Failed to fetch user by email");
+        }
+      });
+    return userId;
+  }
+
+  // retrieve the current user from Amplify
+  useEffect(() => {
+    Auth.currentAuthenticatedUser({
+      bypassCache: false,
+    })
+      .then((user: any) => getUserByEmail(user.attributes.email))
+      .then((id: any) => getUserGardens(id))
+      .catch((err) => console.log(err));
+  }, []);
 
   // get recommended gardens
   useEffect(() => {
@@ -57,35 +120,6 @@ function Home() {
     };
   }, []);
 
-  // get user's gardens
-  useEffect(() => {
-    setUserGardens({ items: userGardens.items, isFetching: true });
-    const controller = new AbortController();
-    Axios.get(USER_GARDENS_URL, {
-      params: {
-        id: userId,
-        signal: controller.signal,
-      },
-    })
-      .then((response) => {
-        console.log(response.data);
-        setUserGardens({ items: response.data, isFetching: false });
-      })
-      .catch((err) => {
-        if (Axios.isCancel(err)) {
-          console.log("successfully aborted");
-          setUserGardens({ items: userGardens.items, isFetching: false });
-        } else {
-          setError(err);
-          console.log(error);
-        }
-      });
-    return () => {
-      controller.abort();
-      setUserGardens({ items: [], isFetching: false });
-    };
-  }, []);
-
   return (
     <div className="Home">
       <NavBar />
@@ -101,6 +135,7 @@ function Home() {
                 userGardens.items &&
                 userGardens.items.map((garden) => (
                   <GardenCard
+                    key={garden["name"]}
                     name={garden["name"]}
                     location={garden["location"]}
                     description={garden["description"]}

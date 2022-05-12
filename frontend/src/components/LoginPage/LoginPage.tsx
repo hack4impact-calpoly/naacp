@@ -194,9 +194,9 @@ function LoginPage() {
   async function signIn(username: string, password: string) {
     try {
       await Auth.signIn(username, password);
-      navigate("/nav");
+      navigate("/");
     } catch (error) {
-      console.log("error signing in", error);
+      alert(`error signing in ${error}`);
     }
   }
 

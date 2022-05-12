@@ -52,6 +52,13 @@ app.get("/users/:id", async (req: Request, res: Response) => {
   res.send(user);
 });
 
+//gets user by email
+app.get("/userEmail", async (req: Request, res: Response) => {
+  const email = req.query.email;
+  const user = await User.findOne({ email: email });
+  res.send(user);
+});
+
 //add new user to the DB
 app.post("/users", async (req: Request, res: Response) => {
   try {
