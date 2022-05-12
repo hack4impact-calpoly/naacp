@@ -53,11 +53,10 @@ export default function App() {
                   </div>
                 }
               />
-              <Route path="/login" element={<Login />} />
+              <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
-              <Route path="/nav" element={<NavBar />} />
-              <Route path="/garden" element={<GardenCard />} />
-              <Route path="/signup/confirm" element={<ConfirmSignUp />} />
+              <Route path="garden" element={<GardenCard />} />
+              <Route path="signup/confirm" element={<ConfirmSignUp />} />
             </Routes>
           </ul>
         </nav>
