@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -62,14 +63,15 @@ const StyledLinkButton = styled(Button)`
   font-family: "Nunito Sans", sans-serif;
 `;
 
-interface GardenPageProps {
-  gardenId: string;
+interface GardenPageState {
+  id: string;
 }
 
-export default function GardenPage({ gardenId }: GardenPageProps) {
+export default function GardenPage() {
   const [garden, setGarden] = useState([] as { [key: string]: any });
   const [gardenDate, setGardenDate] = useState(new Date());
   const [isFetching, setIsFetching] = useState(false);
+  const gardenPageState = useLocation().state as GardenPageState;
 
   useEffect(() => {
     const fetchGarden = async () => {
@@ -77,7 +79,7 @@ export default function GardenPage({ gardenId }: GardenPageProps) {
       const controller = new AbortController();
       const gardenData = await Axios.get(GARDENS_URL, {
         params: {
-          id: gardenId,
+          id: gardenPageState.id,
           signal: controller.signal,
         },
       });

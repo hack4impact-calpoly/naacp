@@ -8,6 +8,7 @@ import ConfirmSignUp from "./components/ConfirmSignUpPage/ConfirmSignUpPage";
 //import NavBar from "./components/NavBar/NavBar";
 //import Footer from "./components/Footer/Footer";
 // import GardenCard from "./components/GardenCard/GardenCard";
+import SearchPage from "./components/SearchPage/SearchPage";
 import Home from "./components/Home/Home";
 import GardenPage from "./components/GardenPage/GardenPage";
 import "./App.css";
@@ -56,11 +57,9 @@ export default function App() {
               />
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
-              <Route
-                path="/garden"
-                element={<GardenPage gardenId="61e6652b3cff809e851e536c" />}
-              />
               <Route path="signup/confirm" element={<ConfirmSignUp />} />
+              <Route path="/garden" element={<GardenPage />} />
+              <Route path="search" element={<SearchPage />} />
             </Routes>
           </ul>
         </nav>

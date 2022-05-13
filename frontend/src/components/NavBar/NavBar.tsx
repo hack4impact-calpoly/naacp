@@ -7,7 +7,7 @@ import React from "react";
 import styled from "styled-components";
 
 const navigation = [
-  { name: "Home", href: "/", current: true },
+  { name: "Home", href: "/", current: false },
   { name: "Search", href: "/search", current: false },
   { name: "Resources", href: "/resources", current: false },
   { name: "Profile", href: "/profile", current: false },

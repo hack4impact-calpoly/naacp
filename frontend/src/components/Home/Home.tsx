@@ -7,10 +7,9 @@ import GardenCard from "../GardenCard/GardenCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIosNew";
 
-const HOST = window.location.hostname;
-const PORT = 4000;
-const COMMUNITY_GARDENS_URL = `http://${HOST}:${PORT}/communityGardens`;
-const USER_GARDENS_URL = `http://${HOST}:${PORT}/userGardens`;
+const PORT = process.env.REACT_APP_SERVER_URL || 4000;
+const COMMUNITY_GARDENS_URL = PORT + `/communityGardens`;
+const USER_GARDENS_URL = PORT + `/userGardens`;
 
 function Home() {
   const [userGardens, setUserGardens] = useState({
