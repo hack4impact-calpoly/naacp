@@ -8,9 +8,6 @@ import "./SearchPage.css";
 
 const PORT = process.env.REACT_APP_SERVER_URL || 4000;
 const GARDENS_URL = PORT + `/gardens`;
-// const HOST = window.location.hostname;
-// const PORT = 4000;
-// const GARDENS_URL = `http://${HOST}:${PORT}/gardens`;
 
 export interface ListProps {
   items: any[];
@@ -90,7 +87,7 @@ export default function SearchPage() {
                     <li key={item}>
                       {
                         <GardenCard
-                          name={item.title}
+                          name={item.name}
                           location={item.location}
                           description={item.description}
                         />
