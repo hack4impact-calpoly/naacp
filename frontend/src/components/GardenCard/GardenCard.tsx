@@ -27,7 +27,7 @@ export default function GardenCard(props: typeof GardenCard.propTypes) {
             <img width={150} src={require("./garden.jpg")} />
           </div>
           <div className="col">
-            <h5 className="mb-1 text-muted">{name}</h5>
+            <h3 className="mb-1 text-muted">{name}</h3>
             <h6 className="card-subtitle mb-2 text-muted">{location}</h6>
           </div>
         </div>
