@@ -1,19 +1,22 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home/Home";
-import Login from "./components/LoginPage/LoginPage";
+//import React from "react";
+//import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//import Home from "./components/Home/Home";
+//import Login from "./components/LoginPage/LoginPage";
 //import Navigation from "./navigation";
-import NavBar from "./components/NavBar/NavBar";
-import GardenCard from "./components/GardenCard/GardenCard";
-import "./App.css";
-import { Auth } from "aws-amplify";
-import awsconfig from "./aws-exports";
+//import NavBar from "./components/NavBar/NavBar";
+//import GardenCard from "./components/GardenCard/GardenCard";
+//import "./App.css";
+//import { Auth } from "aws-amplify";
+//import awsconfig from "./aws-exports";
+import UserProfilePage from "./components/UserProfilePage/UserProfilePage";
 
-Auth.configure(awsconfig);
+//Auth.configure(awsconfig);
 
 export default function App() {
-  return (
-    <Router>
+  return <UserProfilePage />;
+}
+{
+  /* <Router>
       <div>
         <nav>
           <ul>
@@ -26,6 +29,5 @@ export default function App() {
           </ul>
         </nav>
       </div>
-    </Router>
-  );
+    </Router> */
 }
