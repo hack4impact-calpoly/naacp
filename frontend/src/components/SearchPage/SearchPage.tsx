@@ -6,6 +6,7 @@ import NavBar from "../NavBar/NavBar";
 import TextField from "@mui/material/TextField";
 import "./SearchPage.css";
 
+// not displaying gardens
 const PORT = process.env.REACT_APP_SERVER_URL || 4000;
 const GARDENS_URL = PORT + `/gardens`;
 
