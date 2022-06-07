@@ -2,7 +2,8 @@
   "dependencies": {
     "dotenv": "^14.2.0",
     "express": "^4.17.2",
-    "mongoose": "^6.1.7",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.2",
     "node": "^17.3.0"
   },
   "devDependencies": {
@@ -30,7 +31,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node server.ts",
+    "dev": "ts-node server.ts --dev",
     "test": "mocha -r ts-node/register tests/*.test.ts --timeout 20000",
     "format": "prettier . --write"
   },
