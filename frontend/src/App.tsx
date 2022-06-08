@@ -11,6 +11,7 @@ import ConfirmSignUp from "./components/ConfirmSignUpPage/ConfirmSignUpPage";
 import SearchPage from "./components/SearchPage/SearchPage";
 import Home from "./components/Home/Home";
 import GardenPage from "./components/GardenPage/GardenPage";
+import UserProfilePage from "./components/UserProfilePage/UserProfilePage";
 import "./App.css";
 import { Auth } from "aws-amplify";
 
@@ -60,6 +61,7 @@ export default function App() {
               <Route path="signup/confirm" element={<ConfirmSignUp />} />
               <Route path="/garden" element={<GardenPage />} />
               <Route path="search" element={<SearchPage />} />
+              <Route path="/profile" element={<UserProfilePage />} />
             </Routes>
           </ul>
         </nav>

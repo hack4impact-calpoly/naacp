@@ -1,0 +1,26 @@
+.userInfo {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.125);
+  width: 40%;
+  left: 30%;
+}
+
+.userInfo :nth-child(2) {
+  flex-grow: 2;
+}
+
+.col {
+  margin: 10px;
+}
+
+.infoHeader {
+  position: relative;
+  left: 30%;
+}
+
+.userArea {
+  color: rgb(78, 78, 241);
+}
